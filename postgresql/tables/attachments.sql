@@ -1,0 +1,34 @@
+
+CREATE TABLE IF NOT EXISTS badasscouncil.attachments
+(
+    created_on timestamp without time zone NOT NULL DEFAULT now(),
+    updated_on timestamp without time zone,
+    file_id integer NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    enabled boolean DEFAULT true,
+    
+    user_id integer NOT NULL,
+    ip_address inet NOT NULL,
+    
+    comments_public text,
+    comments_private text,
+    
+    archive_name character varying(1024) COLLATE pg_catalog."default",
+    local_name character varying(1024) COLLATE pg_catalog."default",
+    version_number integer DEFAULT 1,
+    
+    CONSTRAINT fk_user_id_attachments FOREIGN KEY(user_id) REFERENCES badasscouncil.users(user_id)
+)
+TABLESPACE badasscouncil;
+ALTER TABLE IF EXISTS vote.attachments OWNER to badasscouncil;
+
+CREATE INDEX IF NOT EXISTS ix_attachments_user_id ON badasscouncil.attachments USING btree (user_id) TABLESPACE badasscouncil;
+
+CREATE FUNCTION badasscouncil.fileUpdated() RETURNS TRIGGER AS $$
+BEGIN
+  NEW.fileUpdated = now();
+  return NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+ALTER FUNCTION vote.fileUpdated() OWNER TO badasscouncil;
+
+CREATE OR REPLACE TRIGGER fileUpdated BEFORE UPDATE ON badasscouncil.attachments FOR EACH ROW EXECUTE FUNCTION badasscouncil.fileUpdated();
