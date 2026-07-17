@@ -11,13 +11,13 @@ CREATE ROLE badasscouncil WITH
   ENCRYPTED PASSWORD 'pharmago$2024';
 
 -- DROP TABLESPACE IF EXISTS badasscouncil;
-CREATE TABLESPACE badasscouncil OWNER badasscouncil LOCATION '/Users/Rajah/Documents/www.triplea.fr/vote/base';
+CREATE TABLESPACE badasscouncil OWNER badasscouncil LOCATION '/Users/Rajah/Documents/www.triplea.fr/vote/badasscouncil-base';
 ALTER TABLESPACE badasscouncil OWNER TO badasscouncil;
 
 -- DROP DATABASE IF EXISTS badasscouncil;
 CREATE DATABASE badasscouncil WITH
     OWNER = badasscouncil
-    TEMPLATE = postgres
+    TEMPLATE = template0
     ENCODING = 'UTF8'
     LC_COLLATE = 'fr_FR.UTF-8'
     LC_CTYPE = 'fr_FR.UTF-8'
@@ -35,6 +35,7 @@ CREATE SCHEMA IF NOT EXISTS badasscouncil AUTHORIZATION badasscouncil;
 \ir ./tables/users.sql
 \ir ./tables/users_roles.sql
 \ir ./tables/refreshtoken.sql
-\ir ./tables/messages.sql
+\ir ./tables/preferences.sql
 \ir ./tables/rooms.sql
-\ir ./tables/files.sql
+\ir ./tables/messages.sql
+\ir ./tables/attachments.sql

@@ -1,4 +1,4 @@
-CREATE TYPE badasscouncil.user_status AS ENUM('ACTIVE', 'LOCKED', 'BANNED', 'SLEEPING');
+CREATE TYPE badasscouncil.user_status AS ENUM('ACTIVE', 'PENDING', 'LOCKED', 'BANNED', 'SLEEPING');
 
 CREATE CAST (varchar AS badasscouncil.user_status) WITH INOUT AS IMPLICIT;
 
@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS badasscouncil.users
 TABLESPACE badasscouncil;
 ALTER TABLE IF EXISTS badasscouncil.users OWNER to badasscouncil;
 
-CREATE UNIQUE INDEX IF NOT EXISTS ix_users_login_name ON badasscouncil.participants USING btree (login_name) TABLESPACE badasscouncil;
-CREATE UNIQUE INDEX IF NOT EXISTS ix_users_nick_name ON badasscouncil.participants USING btree (nick_name) TABLESPACE badasscouncil;
+CREATE UNIQUE INDEX IF NOT EXISTS ix_users_login_name ON badasscouncil.users USING btree (login_name) TABLESPACE badasscouncil;
+CREATE UNIQUE INDEX IF NOT EXISTS ix_users_nick_name ON badasscouncil.users USING btree (nick_name) TABLESPACE badasscouncil;
 
 CREATE FUNCTION badasscouncil.userUpdated() RETURNS TRIGGER AS $$
 BEGIN

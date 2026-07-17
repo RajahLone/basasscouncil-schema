@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS badasscouncil.rooms
     
     topic character varying(512) COLLATE pg_catalog."default" DEFAULT '',
     
-    purge_method badasscouncil.room_purge_method DEFAULT 'NEVER' -- messages purge type  
+    purge_method badasscouncil.room_purge_method DEFAULT 'NEVER', -- messages purge type  
     messages_limit integer DEFAULT 1000,  -- number of remaining messages
     time_duration integer DEFAULT 1440,   -- minutes living before deleting old messages
 

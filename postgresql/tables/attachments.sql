@@ -19,16 +19,16 @@ CREATE TABLE IF NOT EXISTS badasscouncil.attachments
     CONSTRAINT fk_user_id_attachments FOREIGN KEY(user_id) REFERENCES badasscouncil.users(user_id)
 )
 TABLESPACE badasscouncil;
-ALTER TABLE IF EXISTS vote.attachments OWNER to badasscouncil;
+ALTER TABLE IF EXISTS badasscouncil.attachments OWNER to badasscouncil;
 
 CREATE INDEX IF NOT EXISTS ix_attachments_user_id ON badasscouncil.attachments USING btree (user_id) TABLESPACE badasscouncil;
 
-CREATE FUNCTION badasscouncil.fileUpdated() RETURNS TRIGGER AS $$
+CREATE FUNCTION badasscouncil.attachmentUpdated() RETURNS TRIGGER AS $$
 BEGIN
   NEW.fileUpdated = now();
   return NEW;
 END;
 $$ LANGUAGE 'plpgsql';
-ALTER FUNCTION vote.fileUpdated() OWNER TO badasscouncil;
+ALTER FUNCTION badasscouncil.attachmentUpdated() OWNER TO badasscouncil;
 
-CREATE OR REPLACE TRIGGER fileUpdated BEFORE UPDATE ON badasscouncil.attachments FOR EACH ROW EXECUTE FUNCTION badasscouncil.fileUpdated();
+CREATE OR REPLACE TRIGGER attachmentUpdated BEFORE UPDATE ON badasscouncil.attachments FOR EACH ROW EXECUTE FUNCTION badasscouncil.attachmentUpdated();
