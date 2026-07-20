@@ -36,7 +36,7 @@ TABLESPACE badasscouncil;
 ALTER TABLE IF EXISTS badasscouncil.users OWNER to badasscouncil;
 
 CREATE UNIQUE INDEX IF NOT EXISTS ix_users_login_name ON badasscouncil.users USING btree (login_name) TABLESPACE badasscouncil;
-CREATE UNIQUE INDEX IF NOT EXISTS ix_users_nick_name ON badasscouncil.users USING btree (nick_name) TABLESPACE badasscouncil;
+CREATE UNIQUE INDEX IF NOT EXISTS ix_users_nickgroup_name ON badasscouncil.users USING btree (nick_name, group_name) TABLESPACE badasscouncil;
 
 CREATE FUNCTION badasscouncil.userUpdated() RETURNS TRIGGER AS $$
 BEGIN
