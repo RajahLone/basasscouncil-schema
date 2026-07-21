@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS badasscouncil.users
     first_name character varying(128) COLLATE pg_catalog."default" DEFAULT '',
     last_name character varying(128) COLLATE pg_catalog."default" DEFAULT '',
 
-    display_coordinates boolean DEFAULT false,
+    display_contact_details boolean DEFAULT false,
     address character varying(256) COLLATE pg_catalog."default" DEFAULT '',
     zip_code character varying(16) COLLATE pg_catalog."default" DEFAULT '',
     town character varying(128) COLLATE pg_catalog."default" DEFAULT '',
