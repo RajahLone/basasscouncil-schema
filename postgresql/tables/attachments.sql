@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS badasscouncil.attachments
     file_id integer NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     enabled boolean DEFAULT true,
     
-    user_id integer NOT NULL,
+    user_id integer NOT NULL, -- owner
     ip_address inet NOT NULL,
     
     comments_public text,
@@ -15,8 +15,11 @@ CREATE TABLE IF NOT EXISTS badasscouncil.attachments
     archive_name character varying(1024) COLLATE pg_catalog."default",
     local_name character varying(1024) COLLATE pg_catalog."default",
     version_number integer DEFAULT 1,
-    
-    CONSTRAINT fk_user_id_attachments FOREIGN KEY(user_id) REFERENCES badasscouncil.users(user_id)
+
+    dest_id integer, -- pending owner
+
+    CONSTRAINT fk_user_id_attachments FOREIGN KEY(user_id) REFERENCES badasscouncil.users(user_id),
+    CONSTRAINT fk_dest_id_attachments FOREIGN KEY(dest_id) REFERENCES badasscouncil.users(user_id)
 )
 TABLESPACE badasscouncil;
 ALTER TABLE IF EXISTS badasscouncil.attachments OWNER to badasscouncil;
