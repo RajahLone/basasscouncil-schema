@@ -16,8 +16,8 @@ CREATE TABLE IF NOT EXISTS badasscouncil.attachments
     local_name character varying(1024) COLLATE pg_catalog."default",
     version_number integer DEFAULT 1,
 
-    shared boolean DEFAULT false,
     dest_id integer, -- pending owner
+    shared boolean DEFAULT false,
 
     CONSTRAINT fk_user_id_attachments FOREIGN KEY(user_id) REFERENCES badasscouncil.users(user_id),
     CONSTRAINT fk_dest_id_attachments FOREIGN KEY(dest_id) REFERENCES badasscouncil.users(user_id)
@@ -26,6 +26,7 @@ TABLESPACE badasscouncil;
 ALTER TABLE IF EXISTS badasscouncil.attachments OWNER to badasscouncil;
 
 CREATE INDEX IF NOT EXISTS ix_attachments_user_id ON badasscouncil.attachments USING btree (user_id) TABLESPACE badasscouncil;
+CREATE INDEX IF NOT EXISTS ix_attachments_dest_id ON badasscouncil.attachments USING btree (dest_id) TABLESPACE badasscouncil;
 
 CREATE FUNCTION badasscouncil.attachmentUpdated() RETURNS TRIGGER AS $$
 BEGIN
