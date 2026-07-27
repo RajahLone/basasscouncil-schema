@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS badasscouncil.attachments
     local_name character varying(1024) COLLATE pg_catalog."default",
     version_number integer DEFAULT 1,
 
+    shared boolean DEFAULT false,
     dest_id integer, -- pending owner
 
     CONSTRAINT fk_user_id_attachments FOREIGN KEY(user_id) REFERENCES badasscouncil.users(user_id),
@@ -28,7 +29,7 @@ CREATE INDEX IF NOT EXISTS ix_attachments_user_id ON badasscouncil.attachments U
 
 CREATE FUNCTION badasscouncil.attachmentUpdated() RETURNS TRIGGER AS $$
 BEGIN
-  NEW.fileUpdated = now();
+  NEW.updated_on = now();
   return NEW;
 END;
 $$ LANGUAGE 'plpgsql';
