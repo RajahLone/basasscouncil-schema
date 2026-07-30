@@ -30,7 +30,9 @@ CREATE TABLE IF NOT EXISTS badasscouncil.users
     town character varying(128) COLLATE pg_catalog."default" DEFAULT '',
     country character varying(128) COLLATE pg_catalog."default" DEFAULT '',
     phone character varying(32) COLLATE pg_catalog."default" DEFAULT '',
-    email character varying(128) COLLATE pg_catalog."default" DEFAULT ''
+    email character varying(128) COLLATE pg_catalog."default" DEFAULT '',
+    
+    storage_limit integer DEFAULT 0 -- size limit for files storage. -1 = not allowed to upload, 0 = limited only by Quota FILES_PER_MEMBER * (MAX_)FILE_SIZE, > 0 = limit in GB
 )
 TABLESPACE badasscouncil;
 ALTER TABLE IF EXISTS badasscouncil.users OWNER to badasscouncil;
