@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS badasscouncil.attachments
 
     dest_id integer, -- pending owner
     shared boolean DEFAULT false,
+    life_span integer DEFAULT 0, -- days before purged, if 0 then infinite
 
     CONSTRAINT fk_user_id_attachments FOREIGN KEY(user_id) REFERENCES badasscouncil.users(user_id),
     CONSTRAINT fk_dest_id_attachments FOREIGN KEY(dest_id) REFERENCES badasscouncil.users(user_id)
