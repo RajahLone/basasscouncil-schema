@@ -1,8 +1,8 @@
 CREATE TYPE badasscouncil.room_state AS ENUM('ACTIVE', 'LOCKED', 'TRASHED');
-CREATE TYPE badasscouncil.room_purge_method AS ENUM('NEVER', 'MESSAGES_LIMITED', 'TIME_LIMITED', 'WHEN_DEPOPULATED');
+CREATE TYPE badasscouncil.room_purge_type AS ENUM('NEVER', 'MESSAGES_LIMITED', 'TIME_LIMITED');
 
 CREATE CAST (varchar AS badasscouncil.room_state) WITH INOUT AS IMPLICIT;
-CREATE CAST (varchar AS badasscouncil.room_purge_method) WITH INOUT AS IMPLICIT;
+CREATE CAST (varchar AS badasscouncil.room_purge_type) WITH INOUT AS IMPLICIT;
 
 CREATE TABLE IF NOT EXISTS badasscouncil.rooms
 (
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS badasscouncil.rooms
 
     notes character varying(4000) COLLATE pg_catalog."default" DEFAULT '',
 
-    purge_method badasscouncil.room_purge_method DEFAULT 'NEVER', -- messages purge type  
+    purge_type badasscouncil.room_purge_type DEFAULT 'NEVER', -- messages purge type  
     messages_limit integer DEFAULT 1000,  -- number of remaining messages
     time_duration integer DEFAULT 1440,   -- minutes living before deleting old messages
 
