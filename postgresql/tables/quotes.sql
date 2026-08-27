@@ -7,13 +7,3 @@ CREATE TABLE IF NOT EXISTS badasscouncil.quotes
 )
 TABLESPACE badasscouncil;
 ALTER TABLE IF EXISTS badasscouncil.quotes OWNER to badasscouncil;
-
-CREATE FUNCTION badasscouncil.quoteUpdated() RETURNS TRIGGER AS $$
-BEGIN
-  NEW.updated_on = now();
-  return NEW;
-END;
-$$ LANGUAGE 'plpgsql';
-ALTER FUNCTION badasscouncil.quoteUpdated() OWNER TO badasscouncil;
-
-CREATE OR REPLACE TRIGGER quoteUpdated BEFORE UPDATE ON badasscouncil.quotes FOR EACH ROW EXECUTE FUNCTION badasscouncil.quoteUpdated();

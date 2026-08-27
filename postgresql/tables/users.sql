@@ -39,15 +39,3 @@ ALTER TABLE IF EXISTS badasscouncil.users OWNER to badasscouncil;
 
 CREATE UNIQUE INDEX IF NOT EXISTS ix_users_login_name ON badasscouncil.users USING btree (login_name) TABLESPACE badasscouncil;
 CREATE UNIQUE INDEX IF NOT EXISTS ix_users_nickgroup_name ON badasscouncil.users USING btree (nick_name, group_name) TABLESPACE badasscouncil;
-
--- updated_on column is not triggered but manually changed from the java backend application
-
--- CREATE FUNCTION badasscouncil.userUpdated() RETURNS TRIGGER AS $$
--- BEGIN
---   NEW.updated_on = now();
---   return NEW;
--- END;
--- $$ LANGUAGE 'plpgsql';
--- ALTER FUNCTION badasscouncil.userUpdated() OWNER TO badasscouncil;
-
--- CREATE OR REPLACE TRIGGER userUpdated AFTER UPDATE OF enabled, status, login_name, password_hash, password_expired, expired_on, session_timeout, subscribe_motive, nick_name, group_name, first_name, last_name, display_contact_details, address, zip_code, town, country, phone, email, storage_limit ON badasscouncil.users FOR EACH ROW EXECUTE FUNCTION badasscouncil.userUpdated();

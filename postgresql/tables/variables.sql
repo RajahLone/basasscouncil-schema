@@ -10,13 +10,3 @@ CREATE TABLE IF NOT EXISTS badasscouncil.variables
 )
 TABLESPACE badasscouncil;
 ALTER TABLE IF EXISTS badasscouncil.variables OWNER to badasscouncil;
-
-CREATE FUNCTION badasscouncil.variableUpdated() RETURNS TRIGGER AS $$
-BEGIN
-  NEW.updated_on = now();
-  return NEW;
-END;
-$$ LANGUAGE 'plpgsql';
-ALTER FUNCTION badasscouncil.variableUpdated() OWNER TO badasscouncil;
-
-CREATE OR REPLACE TRIGGER variableUpdated BEFORE UPDATE ON badasscouncil.variables FOR EACH ROW EXECUTE FUNCTION badasscouncil.variableUpdated();

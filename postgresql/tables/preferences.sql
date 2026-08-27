@@ -12,13 +12,3 @@ TABLESPACE badasscouncil;
 ALTER TABLE IF EXISTS badasscouncil.preferences OWNER to badasscouncil;
 
 CREATE INDEX IF NOT EXISTS ix_preferences_user_id ON badasscouncil.preferences USING btree (user_id) TABLESPACE badasscouncil;
-
-CREATE FUNCTION badasscouncil.preferenceUpdated() RETURNS TRIGGER AS $$
-BEGIN
-  NEW.updated_on = now();
-  return NEW;
-END;
-$$ LANGUAGE 'plpgsql';
-ALTER FUNCTION badasscouncil.preferenceUpdated() OWNER TO badasscouncil;
-
-CREATE OR REPLACE TRIGGER preferenceUpdated BEFORE UPDATE ON badasscouncil.preferences FOR EACH ROW EXECUTE FUNCTION badasscouncil.preferenceUpdated();

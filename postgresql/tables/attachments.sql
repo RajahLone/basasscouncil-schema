@@ -28,13 +28,3 @@ ALTER TABLE IF EXISTS badasscouncil.attachments OWNER to badasscouncil;
 
 CREATE INDEX IF NOT EXISTS ix_attachments_user_id ON badasscouncil.attachments USING btree (user_id) TABLESPACE badasscouncil;
 CREATE INDEX IF NOT EXISTS ix_attachments_dest_id ON badasscouncil.attachments USING btree (dest_id) TABLESPACE badasscouncil;
-
-CREATE FUNCTION badasscouncil.attachmentUpdated() RETURNS TRIGGER AS $$
-BEGIN
-  NEW.updated_on = now();
-  return NEW;
-END;
-$$ LANGUAGE 'plpgsql';
-ALTER FUNCTION badasscouncil.attachmentUpdated() OWNER TO badasscouncil;
-
-CREATE OR REPLACE TRIGGER attachmentUpdated BEFORE UPDATE ON badasscouncil.attachments FOR EACH ROW EXECUTE FUNCTION badasscouncil.attachmentUpdated();

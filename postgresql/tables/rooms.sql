@@ -32,13 +32,3 @@ TABLESPACE badasscouncil;
 ALTER TABLE IF EXISTS badasscouncil.rooms OWNER to badasscouncil;
 
 CREATE INDEX IF NOT EXISTS ix_rooms_user_id ON badasscouncil.rooms USING btree (user_id) TABLESPACE badasscouncil;
-
-CREATE FUNCTION badasscouncil.roomUpdated() RETURNS TRIGGER AS $$
-BEGIN
-  NEW.updated_on = now();
-  return NEW;
-END;
-$$ LANGUAGE 'plpgsql';
-ALTER FUNCTION badasscouncil.roomUpdated() OWNER TO badasscouncil;
-
-CREATE OR REPLACE TRIGGER roomUpdated BEFORE UPDATE ON badasscouncil.rooms FOR EACH ROW EXECUTE FUNCTION badasscouncil.roomUpdated();
