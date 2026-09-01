@@ -25,6 +25,8 @@ CREATE TABLE IF NOT EXISTS badasscouncil.rooms
     purge_type badasscouncil.room_purge_type DEFAULT 'NEVER', -- messages purge type  
     messages_limit integer DEFAULT 1000,  -- number of remaining messages
     time_duration integer DEFAULT 1440,   -- minutes living before deleting old messages
+    
+    listed_users_type integer DEFAULT 0, -- 0: granted for all, 1: allowed to some users (according to rooms_allowed_users table), 2: allowed for all except for some users (according to rooms_disallowed_users table)
 
     CONSTRAINT fk_user_id_users FOREIGN KEY(user_id) REFERENCES badasscouncil.users(user_id)
 )
