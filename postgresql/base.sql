@@ -39,3 +39,4 @@ CREATE SCHEMA IF NOT EXISTS badasscouncil AUTHORIZATION badasscouncil;
 \ir ./tables/rooms.sql
 \ir ./tables/messages.sql
 \ir ./tables/attachments.sql
+\ir ./tables/images.sql
