@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS badasscouncil.images
     user_id integer NOT NULL, -- owner
     ip_address inet NOT NULL,
 
+    file_name character varying(1024) COLLATE pg_catalog."default",
     thumbnail bytea,
     data bytea,
     
