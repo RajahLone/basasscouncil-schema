@@ -14,9 +14,9 @@ CREATE TABLE IF NOT EXISTS badasscouncil.images
     thumbnail bytea,
     data bytea,
     
-    CONSTRAINT fk_message_id_id_images FOREIGN KEY(message_id) REFERENCES badasscouncil.messages(message_id),
-    CONSTRAINT fk_user_id_images FOREIGN KEY(user_id) REFERENCES badasscouncil.users(user_id),
-    CONSTRAINT fk_dest_id_images FOREIGN KEY(dest_id) REFERENCES badasscouncil.users(user_id)
+    CONSTRAINT fk_message_id_id_images FOREIGN KEY(message_id) REFERENCES badasscouncil.messages(message_id) ON DELETE CASCADE,
+    CONSTRAINT fk_user_id_images FOREIGN KEY(user_id) REFERENCES badasscouncil.users(user_id) ON DELETE CASCADE,
+    CONSTRAINT fk_dest_id_images FOREIGN KEY(dest_id) REFERENCES badasscouncil.users(user_id) ON DELETE CASCADE
 )
 TABLESPACE badasscouncil;
 ALTER TABLE IF EXISTS badasscouncil.images OWNER to badasscouncil;
