@@ -1,11 +1,20 @@
+CREATE TYPE badasscouncil.message_type AS ENUM('TEXT', 'IMAGES', 'URL');
+
+CREATE CAST (varchar AS badasscouncil.message_type) WITH INOUT AS IMPLICIT;
+
 CREATE TABLE IF NOT EXISTS badasscouncil.messages
 (
     created_on timestamp without time zone NOT NULL DEFAULT now(),
     room_id integer NOT NULL,
     message_id integer NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    
+    message_type badasscouncil.message_type DEFAULT 'TEXT',
+
     user_id integer NOT NULL,
     dest_id integer,
+    
     content character varying(4000) COLLATE pg_catalog."default",
+    
     CONSTRAINT fk_room_id_messages FOREIGN KEY(room_id) REFERENCES badasscouncil.rooms(room_id),
     CONSTRAINT fk_user_id_messages FOREIGN KEY(user_id) REFERENCES badasscouncil.users(user_id),
     CONSTRAINT fk_dest_id_messages FOREIGN KEY(dest_id) REFERENCES badasscouncil.users(user_id)
